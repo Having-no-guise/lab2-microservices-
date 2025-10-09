@@ -1,0 +1,15 @@
+
+services:
+  server2:
+    image: node:20
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: node index.js
+    expose:
+      - "3000"
+    networks:
+      - shared_net
+networks:
+  shared_net:
+    external: true
