@@ -1,6 +1,13 @@
 const express = require('express')
-const app = express()
 const amqp = require('amqplib')
+const logger = require('./logger')
+const requestId = require('./middleware/requestId')
+
+const app = express()
+
+
+app.use(requestId)
+
 
 let connection
 let channel
@@ -35,6 +42,11 @@ async function consumeMessages() {
 }
 
 app.get('/', async (req, res) => {
+  logger.info({
+    requestId: req.requestId,
+    service: 'service1',
+    message: 'Received GET / request'
+  })
   await sendMessage('Message from service 1')
   res.send('Res from service 1')
 })

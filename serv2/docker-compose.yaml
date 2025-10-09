@@ -5,6 +5,7 @@ services:
     working_dir: /app
     volumes:
       - ./:/app
+      - ./logs/serv2:/var/log
     command: node index.js
     expose:
       - "3000"
