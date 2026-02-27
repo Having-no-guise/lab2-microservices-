@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+    
+    environment {
+        BRANCH_NAME = 'master'  
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                echo "Building branch: ${env.BRANCH_NAME}"
+            }
+        }
+
+        stage('Check Hosts') {
+            steps {
+                bat 'echo %DOCKER_HOST%'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                 bat '''
+                    cd master/serv1
+                    docker compose up --build -d
+                    cd ../serv2
+                    docker compose up --build -d
+                    cd ../
+                    docker compose up --build -d
+                    docker ps -a
+                '''
+
+                
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo 'Building complete'
+        }
+    }
+}
