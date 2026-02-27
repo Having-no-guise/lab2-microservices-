@@ -22,10 +22,10 @@ pipeline {
             steps {
                  bat '''
                     cd ./serv1
-                    npm install
+                    call npm install
                     docker compose up --build -d
                     cd ../serv2
-                    npm install
+                    call npm install
                     docker compose up --build -d
                     cd ../
                     docker compose up --build -d
