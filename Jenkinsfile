@@ -21,7 +21,7 @@ pipeline {
         stage('Build') {
             steps {
                  bat '''
-                    cd /serv1
+                    cd ./serv1
                     docker compose up --build -d
                     cd ../serv2
                     docker compose up --build -d
