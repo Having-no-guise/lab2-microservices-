@@ -6,5 +6,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(3000, '0.0.0.0', () => {
-  console.log('Test webhook Server2 running on http://localhost:3000');
+  console.log('Server2 running on http://localhost:3000');
 });
